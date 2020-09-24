@@ -11,6 +11,7 @@ export default () => {
 
     const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/AnotherAsset/content-elements');
 
+    endpoint.searchParams.append('aggregationTerms', 'userName');
     endpoint.searchParams.append('nestedFields', 'contentValue');
     endpoint.searchParams.append("filter", "keywords/any(k:k eq 'tiktok')");
 
