@@ -9,7 +9,11 @@ export default () => {
 
   useEffect(() => {
 
-    fetch('http://localhost:8080/o/headless-delivery/v1.0/sites/Guest/documents', {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
+    const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/sites/Guest/documents');
+
+    endpoint.searchParams.append('nestedFields', 'contentValue');
+
+    fetch(endpoint, {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -18,7 +22,7 @@ export default () => {
           creator: document.creator,
           song: document.title,
           description: document.description,
-          url: 'http://localhost:8080/' + document.contentUrl
+          url: 'data:video/mp4;base64,' + document.contentValue
         })));
       })
   }, [])
