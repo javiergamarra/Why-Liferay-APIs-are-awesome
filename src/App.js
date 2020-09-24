@@ -9,21 +9,22 @@ export default () => {
 
   useEffect(() => {
 
-    const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/AnotherAsset/documents');
+    const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/AnotherAsset/content-elements');
 
     endpoint.searchParams.append('nestedFields', 'contentValue');
+    endpoint.searchParams.append("filter", "keywords/any(k:k eq 'tiktok')");
 
     fetch(endpoint, {headers: {"Authorization": "Basic dGVzdDFAdGVzdDEuY29tOnRlc3Qx"}})
       .then(response => response.json())
       .then(data => {
         console.log(data)
 
-        setVideos(data.items.map(document => ({
+        setVideos(data.items.map(({content: document}) => ({
           creator: document.creator,
           remove: document.actions.delete,
           song: document.title,
           description: document.description,
-          url: 'data:video/mp4;base64,' + document.contentValue
+          url: document.contentValue ? ('data:video/mp4;base64,' +  document.contentValue) : 'http://localhost:8080/' + document.contentFields[0].contentFieldValue.document.contentUrl
         })));
       })
   }, [])
