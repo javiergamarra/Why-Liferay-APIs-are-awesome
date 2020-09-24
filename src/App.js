@@ -9,7 +9,7 @@ export default () => {
 
   useEffect(() => {
 
-    const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/sites/Guest/documents');
+    const endpoint = new URL('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/AnotherAsset/documents');
 
     endpoint.searchParams.append('nestedFields', 'contentValue');
 
