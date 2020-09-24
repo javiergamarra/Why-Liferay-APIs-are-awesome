@@ -13,13 +13,14 @@ export default () => {
 
     endpoint.searchParams.append('nestedFields', 'contentValue');
 
-    fetch(endpoint, {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
+    fetch(endpoint, {headers: {"Authorization": "Basic dGVzdDFAdGVzdDEuY29tOnRlc3Qx"}})
       .then(response => response.json())
       .then(data => {
         console.log(data)
 
         setVideos(data.items.map(document => ({
           creator: document.creator,
+          remove: document.actions.delete,
           song: document.title,
           description: document.description,
           url: 'data:video/mp4;base64,' + document.contentValue
@@ -35,7 +36,7 @@ export default () => {
             <Route exact path="/">
               {videos.map(
                 ({
-                   creator = {}, description, likes = 0, messages = "", shares = 0, song, url,
+                   creator = {}, description, likes = 0, messages = "", remove, shares = 0, song, url,
                  }) => (
                   <Video
                     creator={creator}
@@ -43,6 +44,7 @@ export default () => {
                     key={url}
                     likes={likes}
                     messages={messages}
+                    remove={remove}
                     shares={shares}
                     song={song}
                     url={url}

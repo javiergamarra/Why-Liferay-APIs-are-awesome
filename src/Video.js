@@ -4,7 +4,7 @@ import VideoSidebar from './VideoSidebar';
 import './Video.css';
 
 export default ({
-                  creator, description, likes, messages, shares, song, url,
+                  creator, description, likes, messages, remove, shares, song, url,
                 }) => {
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -29,7 +29,7 @@ export default ({
         src={url}
       />
       <VideoFooter creator={creator} description={description} song={song}/>
-      <VideoSidebar likes={likes} messages={messages} shares={shares}/>
+      <VideoSidebar likes={likes} messages={messages} remove={remove} shares={shares}/>
     </div>
   );
 };
